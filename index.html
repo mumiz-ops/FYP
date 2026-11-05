@@ -367,6 +367,24 @@
     },
     options: { responsive: true, maintainAspectRatio: false }
   });
-</script>
+  
+  async function syncWithFastAPI() {
+  try {
+    // Fetch Summary Metrics
+    const metricsRes = await fetch('http://localhost:8000/api/v1/metrics');
+    const metrics = await metricsRes.json();
+    console.log("Live Metrics Loaded:", metrics);
+
+    // Fetch Category Breakdown
+    const catRes = await fetch('http://localhost:8000/api/v1/category-breakdown');
+    const catData = await catRes.json();
+    console.log("Category Breakdown Loaded:", catData);
+
+  } catch (error) {
+    console.error("Error connecting to FastAPI backend:", error);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', syncWithFastAPI);</script>
 </body>
 </html>
